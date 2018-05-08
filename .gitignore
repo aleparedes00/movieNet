@@ -1,0 +1,11 @@
+.svn/
+
+packages/
+
+.vs/
+
+**/bin/
+
+**/obj/
+
+**/*MovieNetDataDatabase*

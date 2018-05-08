@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MovieNetModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MovieNetModelStoreContainer">
+    <EntitySet Name="FilmSet" EntityType="MovieNetModel.Store.FilmSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserSet" EntityType="MovieNetModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CommentSet" EntityType="MovieNetModel.Store.CommentSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserComment" Association="MovieNetModel.Store.UserComment">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Comment" EntitySet="CommentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FilmComment" Association="MovieNetModel.Store.FilmComment">
+      <End Role="Film" EntitySet="FilmSet" />
+      <End Role="Comment" EntitySet="CommentSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="FilmSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Genres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Synopsis" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Score" Type="float" Nullable="true" />
+    <Property Name="Year" Type="smallint" Nullable="true" />
+    <Property Name="Director" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Score" Type="float" Nullable="true" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="false" />
+    <Property Name="Film_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserComment">
+    <End Role="User" Type="MovieNetModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Comment" Type="MovieNetModel.Store.CommentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FilmComment">
+    <End Role="Film" Type="MovieNetModel.Store.FilmSet" Multiplicity="1" />
+    <End Role="Comment" Type="MovieNetModel.Store.CommentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Film">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Comment">
+        <PropertyRef Name="Film_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MovieNetModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MovieNetModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FilmSet" EntityType="MovieNetModel.Film" />
+          <EntitySet Name="UserSet" EntityType="MovieNetModel.User" />
+          <EntitySet Name="CommentSet" EntityType="MovieNetModel.Comment" />
+          <AssociationSet Name="UserComment" Association="MovieNetModel.UserComment">
+            <End Role="User" EntitySet="UserSet" />
+            <End Role="Comment" EntitySet="CommentSet" />
+          </AssociationSet>
+          <AssociationSet Name="FilmComment" Association="MovieNetModel.FilmComment">
+            <End Role="Film" EntitySet="FilmSet" />
+            <End Role="Comment" EntitySet="CommentSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Film">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titre" Type="String" Nullable="false" />
+          <Property Name="Genres" Type="String" Nullable="false" />
+          <Property Name="Synopsis" Type="String" Nullable="true" />
+          <Property Name="Score" Type="Double" Nullable="true" />
+          <NavigationProperty Name="Comment" Relationship="MovieNetModel.FilmComment" FromRole="Film" ToRole="Comment" />
+          <Property Name="Year" Type="Int16" Nullable="true" />
+          <Property Name="Director" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" />
+          <Property Name="Password" Type="String" Nullable="false" />
+          <NavigationProperty Name="Comment" Relationship="MovieNetModel.UserComment" FromRole="User" ToRole="Comment" />
+        </EntityType>
+        <EntityType Name="Comment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" />
+          <Property Name="Score" Type="Double" Nullable="true" />
+          <Property Name="Text" Type="String" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="MovieNetModel.UserComment" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Film" Relationship="MovieNetModel.FilmComment" FromRole="Comment" ToRole="Film" />
+        </EntityType>
+        <Association Name="UserComment">
+          <End Type="MovieNetModel.User" Role="User" Multiplicity="1" />
+          <End Type="MovieNetModel.Comment" Role="Comment" Multiplicity="*" />
+        </Association>
+        <Association Name="FilmComment">
+          <End Type="MovieNetModel.Film" Role="Film" Multiplicity="1" />
+          <End Type="MovieNetModel.Comment" Role="Comment" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MovieNetModelStoreContainer" CdmEntityContainer="MovieNetModelContainer">
+    <EntitySetMapping Name="FilmSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MovieNetModel.Film)">
+        <MappingFragment StoreEntitySet="FilmSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Genres" ColumnName="Genres" />
+          <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Director" ColumnName="Director" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MovieNetModel.User)">
+        <MappingFragment StoreEntitySet="UserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(MovieNetModel.Comment)">
+        <MappingFragment StoreEntitySet="CommentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+          <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="UserComment" TypeName="MovieNetModel.UserComment" StoreEntitySet="CommentSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="Comment">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FilmComment" TypeName="MovieNetModel.FilmComment" StoreEntitySet="CommentSet">
+      <EndProperty Name="Film">
+        <ScalarProperty Name="Id" ColumnName="Film_Id" />
+      </EndProperty>
+      <EndProperty Name="Comment">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
