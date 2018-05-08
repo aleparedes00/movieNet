@@ -5,11 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
         mc:Ignorable="d"
-        DataContext="{Binding Source={StaticResource VMLocator}, Path=MainVM}"
         Title="MainWindow" Height="720.814" Width="1281.448">
-    <Grid>
-        <Label x:Name="label1" Content="{Binding Name}" HorizontalAlignment="Left" Height="408" Margin="165,81,0,0" VerticalAlignment="Top" Width="773" FontSize="20"/>
-        <Button x:Name="Sumit" Command="{Binding MyCommand}" Content="Sumit" HorizontalAlignment="Left" Height="29" Margin="893,511,0,0" VerticalAlignment="Top" Width="95"/>
+    <DockPanel LastChildFill="True" DataContext="{Binding MainVM, Source={StaticResource VMLocator}}">
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Titre" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15"/>
 
-    </Grid>
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button DockPanel.Dock="Left" Content="Load Films" Width="200" Height="25" Command="{Binding LoadFilmsCommand}" />
+            <Button DockPanel.Dock="Right" Content="Save Film" Width="200" Height="25" Command="{Binding SaveFilmsCommand}" />
+        </DockPanel>
+        <Grid>
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Height" Value="25" />
+                    <Setter Property="Margin" Value="10, 10, 0, 0" />
+                </Style>
+                <Style TargetType="{x:Type Label}" >
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Title" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilmSelected.Titre}" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Content="Genres" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FilmSelected.Genres}" />
+            
+            <Label Grid.Row="2" Grid.Column="0" Content="Synopsis" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FilmSelected.Synopsis}" />
+            
+            <Label Grid.Row="3" Grid.Column="0" Content="Director" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding FilmSelected.Director}" />
+        </Grid>
+    </DockPanel>
+    
 </Window>

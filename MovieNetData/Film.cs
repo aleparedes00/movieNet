@@ -37,13 +37,6 @@ namespace MovieNetData
         public Nullable<short> Year { get; set; }
         public string Director { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void addComment(Comment commentToAdd)
-        {
-            this.Comment.Add(commentToAdd);
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
     }
