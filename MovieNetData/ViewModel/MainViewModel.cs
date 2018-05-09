@@ -53,7 +53,7 @@ namespace MovieNetData.ViewModel
             }
             set {
                 filmSelected = value;
-                RaisePropertyChanged("Film Selected");
+                RaisePropertyChanged("FilmSelected");
             }
         }
 
