@@ -98,7 +98,8 @@ namespace MovieNetData.DAO
                 filmToUpdate = film;
                 try
                 {
-                    ctx.SaveChanges();
+                    int num = ctx.SaveChanges();
+                    Console.WriteLine(num);
                 }
                 catch
                 {
