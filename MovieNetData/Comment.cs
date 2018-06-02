@@ -14,21 +14,11 @@ namespace MovieNetData
     
     public partial class Comment
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-
-        public Comment()
-        {
-            this.CreationDate = DateTime.Now;
-            this.ModificationDate = DateTime.Now;
-        }
-        public Comment(string text, User user, Film film) {
-            this.Text = text;
-            this.CreationDate = DateTime.Now;
-            this.ModificationDate = DateTime.Now;
+        public Comment(string comment, User user, Film film) {
+            this.Text = comment;
             this.User = user;
             this.Film = film;
         }
-
         public int Id { get; set; }
         public Nullable<double> Score { get; set; }
         public string Text { get; set; }

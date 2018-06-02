@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 04/23/2018 18:51:03
--- Generated from EDMX file: C:\Users\haparedesceb\Private\School\IDV\MovieNet\MovieNetData\MovieNetModel.edmx
+-- Date Created: 05/31/2018 15:49:44
+-- Generated from EDMX file: C:\Users\student\Desktop\MovieNet\MovieNetData\MovieNetModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,25 +17,25 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CommentSet] DROP CONSTRAINT [FK_UserComment];
-GO
 IF OBJECT_ID(N'[dbo].[FK_FilmComment]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[CommentSet] DROP CONSTRAINT [FK_FilmComment];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserComment]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CommentSet] DROP CONSTRAINT [FK_UserComment];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[CommentSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CommentSet];
+GO
 IF OBJECT_ID(N'[dbo].[FilmSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[FilmSet];
 GO
 IF OBJECT_ID(N'[dbo].[UserSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserSet];
-GO
-IF OBJECT_ID(N'[dbo].[CommentSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CommentSet];
 GO
 
 -- --------------------------------------------------

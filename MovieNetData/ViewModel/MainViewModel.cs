@@ -19,12 +19,13 @@ namespace MovieNetData.ViewModel
 
         public MainViewModel()
         {
-            LoadFilmsCommand = new RelayCommand(LoadFilmsCommandMethod);
+            LoadFilmsCommandMethod();
+            //LoadFilmsCommand = new RelayCommand(LoadFilmsCommandMethod);
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
            // MyCommand = new RelayCommand(MyCommandExecute, MyCommandCanExecute);
         }
-
-        public ICommand LoadFilmsCommand { get; private set; }
+            
+        //public ICommand LoadFilmsCommand { get; private set; }
         public ICommand SaveFilmsCommand { get; private set; }
 
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
@@ -44,7 +45,6 @@ namespace MovieNetData.ViewModel
                 listFucking.ForEach(f => films.Add(f));
             }
             this.RaisePropertyChanged(() => this.FilmsList);
-            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Films Loaded"));
         }
 
         public Film FilmSelected {
@@ -69,26 +69,5 @@ namespace MovieNetData.ViewModel
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("You have to select a film"));
             }
         }
-
-        //private string name;
-
-        //public string Name
-        //{
-        //    get { return name; }
-        //    set {
-        //        name = value;
-        //        RaisePropertyChanged();
-        //    }
-        //}
-        //public RelayCommand MyCommand { get;}
-
-        //void MyCommandExecute()
-        //{
-        //    name = "Welcome to MovieNet";
-        //}
-
-        //bool MyCommandCanExecute() {
-        //    return true;
-        //}
     }
 }

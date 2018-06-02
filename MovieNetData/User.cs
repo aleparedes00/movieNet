@@ -20,10 +20,9 @@ namespace MovieNetData
             this.Comment = new HashSet<Comment>();
         }
 
-        public User(string username, string password)
-        {
+        public User(string username, string pass) {
             this.Username = username;
-            this.Password = password;
+            this.Password = pass;
             this.Comment = new HashSet<Comment>();
         }
     

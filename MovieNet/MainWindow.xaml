@@ -10,7 +10,7 @@
         <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Titre" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15"/>
 
         <DockPanel DockPanel.Dock="Bottom">
-            <Button DockPanel.Dock="Left" Content="Load Films" Width="200" Height="25" Command="{Binding LoadFilmsCommand}" />
+            <!--<Button DockPanel.Dock="Left" Content="Load Films" Width="200" Height="25" Command="{Binding LoadFilmsCommand}" />-->
             <Button DockPanel.Dock="Right" Content="Save Film" Width="200" Height="25" Command="{Binding SaveFilmsCommand}" />
         </DockPanel>
         <Grid>
