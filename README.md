@@ -5,6 +5,11 @@ Create property with value = propfull+Tab+Tab
 Create constructor = ctor+Tab+Tab
 
 
+TUTOS:
+
+Dropdown botton https://www.youtube.com/watch?v=76Dhagr_fuc
+to make the app pretty https://mahapps.com/guides/quick-start.html
+
 Classes:
 
 	1.- User

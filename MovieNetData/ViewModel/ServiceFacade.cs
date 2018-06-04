@@ -19,9 +19,9 @@ namespace MovieNetData.ViewModel
 
         private ServiceFacade()
         {
-            UserDao = new UserDao();
-            FilmDao = new FilmDao();
-            CommentDao = new CommentDao();
+            _userDao = new UserDao();
+            _filmDao = new FilmDao();
+            _commentDao = new CommentDao();
         }
 
         public static ServiceFacade Instance
@@ -33,11 +33,26 @@ namespace MovieNetData.ViewModel
             }
         }
 
-        public UserDao UserDao { get; set; }
+        public UserDao UserDao {
+            get
+            {
+                return _userDao;
+            }
+        }
 
-        public FilmDao FilmDao { get; set; }
+        public FilmDao FilmDao {
+            get
+            {
+                return _filmDao;
+            }
+        }
 
-        public CommentDao CommentDao { get; set; }
+        public CommentDao CommentDao {
+            get
+            {
+                return _commentDao;
+            }
+        }
 
     }
 }

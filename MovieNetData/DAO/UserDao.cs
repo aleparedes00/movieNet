@@ -8,11 +8,9 @@ using System.Threading.Tasks;
 namespace MovieNetData.DAO
 {
     // Ref: https://www.tutorialspoint.com/entity_framework/entity_framework_dbcontext.htm
-    public class UserDao : INotifyPropertyChanged 
+    public class UserDao
     {
         private static MovieNetModelContainer ctx = new MovieNetModelContainer();
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         // Find All
         public List<User> FindAllUsers()
@@ -71,6 +69,20 @@ namespace MovieNetData.DAO
             }
 
             return userByUsername;
+        }
+
+        public User UserValidation(String username, String password) {
+            User user = null;
+
+            try
+            {
+                user = ctx.UserSet.Where(u => u.Username == username && u.Password == password).Single();
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Context problems");
+            }
+            return user;
         }
         // ...
 

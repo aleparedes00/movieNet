@@ -20,10 +20,14 @@ namespace MovieNetData.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<LoginVM>();
             Messenger.Default.Register<NotificationMessage>(this, NotifyUserMethod);
         }
 
-        public static LoginVM LoginVM { get; } = new LoginVM();
+        public LoginVM LoginVM
+        {
+            get { return ServiceLocator.Current.GetInstance<LoginVM>();  }
+        }
 
         public MainViewModel MainVM
         {

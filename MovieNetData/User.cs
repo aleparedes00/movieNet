@@ -11,25 +11,29 @@ namespace MovieNetData
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class User
     {
+        private string _username;
+        private string _password;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
             this.Comment = new HashSet<Comment>();
         }
 
-        public User(string username, string pass) {
+        public User(string username, string pass)
+        {
             this.Username = username;
             this.Password = pass;
             this.Comment = new HashSet<Comment>();
         }
-    
+
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-    
+        public string Username { get => _username; set => _username = value; }
+        public string Password { get => _password; set => _password = value; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
     }

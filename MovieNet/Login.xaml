@@ -4,18 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        DataContext="{Binding Source={StaticResource VMLocator}, Path=LoginVM}"
-        Title="Login" Height="450" Width="414.447" FontSize="16" Background="CornflowerBlue">
+        DataContext="{Binding LoginVM, Source={StaticResource VMLocator}}"
+        Title="Login" Height="450" Width="414.447" FontSize="16" Background="ForestGreen">
+    
     <Border Background="Black" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
             <Label Content="Username" Foreground="White"/>
-            <TextBox x:Name="txtUsername" Background="Gray" Foreground="White" FontSize="18"/>
+            <TextBox Text="{Binding Username}" Background="Gray" Foreground="White" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="Gray" Foreground="White" FontSize="18"/>
-            <Button Name="BtnSumit" Command="{Binding LoginCommand}" Content="Sumit" Margin="70 10" Background="Gray" Foreground="White" FontSize="18"/>
+            <PasswordBox x:Name="Password" Background="Gray" Foreground="White" FontSize="18">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PasswordChanged">
+                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=Password}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </PasswordBox>
+            <Button Content="Sumit" Background="Gray" Foreground="White" FontSize="18" Command="{Binding LoginCommand}" Width="75" HorizontalAlignment="Center"/>
+            <Button Content="Back" Background="Gray" Foreground="White" FontSize="18" Command="{Binding BackCommand}" Width="75" HorizontalAlignment="Center"/>
         </StackPanel>
     </Border>
 </Window>

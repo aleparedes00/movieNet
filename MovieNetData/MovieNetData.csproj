@@ -63,6 +63,7 @@
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -78,6 +79,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comment.cs">
@@ -111,6 +113,7 @@
     <Compile Include="User.cs">
       <DependentUpon>MovieNetModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\Testing.cs" />
     <Compile Include="ViewModel\VMLocator.cs" />
   </ItemGroup>
   <ItemGroup>
