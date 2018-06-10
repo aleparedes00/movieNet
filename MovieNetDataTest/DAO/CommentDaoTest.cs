@@ -31,7 +31,7 @@ namespace MovieNetDataTest.DAO
         [TestMethod]
         public void TestFindAllComments()
         {
-            List<Comment> allComments = serviceFacade.CommentDao.FindAllComments;
+            List<Comment> allComments = serviceFacade.CommentDao.FindAllComments();
 
             if (allComments.Count > 0)
             {
@@ -53,13 +53,13 @@ namespace MovieNetDataTest.DAO
             Assert.AreEqual(NB_COMMENTS_BY_FILMID, commentsByFilmId.Count);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void TestCRUDComment()
         {
             // Create
-            User userCRUD = serviceFacade.UserDao.FindUserByUsername("aleparedes00");
-            Film film = serviceFacade.FilmDao.findById(1);
-            Comment commentCRUD = new Comment("I liked the movie", userCRUD, film);
+            User user = serviceFacade.UserDao.FindUserByUsername("aleparedes00");
+            Film film = serviceFacade.FilmDao.FindFilmById(1);
+            Comment commentCRUD = new Comment("I liked the movie", user, film);
             Console.WriteLine("commentCRUD : " + commentCRUD);
             Console.WriteLine("commentDAO : " + serviceFacade.CommentDao);
             commentCRUD = serviceFacade.CommentDao.CreateComment(commentCRUD);
@@ -76,7 +76,7 @@ namespace MovieNetDataTest.DAO
             // Delete
             Assert.IsTrue(serviceFacade.CommentDao.DeleteComment(commentCRUD));
             Assert.IsNull(serviceFacade.CommentDao.FindCommentById(commentCRUD.Id));
-              List<Comment> finalComments = serviceFacade.CommentDao.FindAllComments;
+              List<Comment> finalComments = serviceFacade.CommentDao.FindAllComments();
             if (finalComments != null)
             {
                 Assert.AreEqual(NB_COMMENTS_TOTAL, finalComments.Count);

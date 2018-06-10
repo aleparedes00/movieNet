@@ -13,10 +13,6 @@ namespace MovieNetData.ViewModel
     {
         private static ServiceFacade INSTANCE = null;
 
-        private UserDao _userDao;
-        private FilmDao _filmDao;
-        private CommentDao _commentDao;
-
         private ServiceFacade()
         {
             _userDao = new UserDao();

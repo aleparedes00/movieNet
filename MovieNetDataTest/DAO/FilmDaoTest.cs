@@ -35,7 +35,7 @@ namespace MovieNetDataTest.DAO
         [TestMethod]
         public void TestFindAllFilms()
         {
-            List<Film> listFilms = serviceFacade.FilmDao.findAllFilms();
+            List<Film> listFilms = serviceFacade.FilmDao.FindAllFilms();
 
             if (listFilms.Count > 0) {
                 Assert.AreEqual(NB_FILMS, listFilms.Count);
@@ -47,10 +47,10 @@ namespace MovieNetDataTest.DAO
         [TestMethod]
         public void testFindByCriteia()
         {
-            List<Film> films = serviceFacade.FilmDao.findByTitle(FIND_FILM_BY_NAME);
-            Assert.AreEqual(FIND_FILM_BY_GENRES, films.Find(f => f.Titre.Equals(FIND_FILM_BY_NAME)).Genres);
+            List<Film> films = serviceFacade.FilmDao.FindFilmsByTitle(FIND_FILM_BY_NAME);
+            Assert.AreEqual(FIND_FILM_BY_GENRES, films.Find(f => f.Title.Equals(FIND_FILM_BY_NAME)).Genres);
 
-            List<Film> filmByGenres = serviceFacade.FilmDao.findByGenre(FIND_FILM_BY_GENRES);
+            List<Film> filmByGenres = serviceFacade.FilmDao.FindFilmsByGenre(FIND_FILM_BY_GENRES);
             Assert.AreEqual(NB_FILMS_BY_GENRES, filmByGenres.Count);
             
         }
@@ -61,22 +61,22 @@ namespace MovieNetDataTest.DAO
             // Create
             Film filmCRUD = new Film("The Jungle Book", "Animation", "Bagheera the Panther and Baloo the Bear have a difficult time trying to convince a boy to leave the jungle for human civilization.", "Wolfgang Reitherman");
 
-            filmCRUD = serviceFacade.FilmDao.createFilm(filmCRUD);
+            filmCRUD = serviceFacade.FilmDao.CreateFilm(filmCRUD);
             Assert.IsNotNull(filmCRUD);
-            Assert.AreEqual("The Jungle Book", filmCRUD.Titre);
+            Assert.AreEqual("The Jungle Book", filmCRUD.Title);
             Assert.AreEqual("Animation", filmCRUD.Genres);
 
             // Update
             filmCRUD.Genres = "Adventure";
-            filmCRUD = serviceFacade.FilmDao.upadteFilm(filmCRUD);
+            filmCRUD = serviceFacade.FilmDao.UpdateFilm(filmCRUD);
             Assert.IsNotNull(filmCRUD);
             Assert.AreEqual("Adventure", filmCRUD.Genres);
 
             // Delete
 
-            Assert.IsTrue(serviceFacade.FilmDao.deleteFilm(filmCRUD.Id));
-            Assert.IsNull(serviceFacade.FilmDao.findById(filmCRUD.Id));
-            List<Film> finalFilms = serviceFacade.FilmDao.findAllFilms();
+            Assert.IsTrue(serviceFacade.FilmDao.DeleteFilm(filmCRUD));
+            Assert.IsNull(serviceFacade.FilmDao.FindFilmById(filmCRUD.Id));
+            List<Film> finalFilms = serviceFacade.FilmDao.FindAllFilms();
             if (finalFilms != null)
             {
                 Assert.AreEqual(NB_FILMS, finalFilms.Count);
