@@ -10,8 +10,6 @@ namespace MovieNetData.DAO
     // Ref: https://www.tutorialspoint.com/entity_framework/entity_framework_dbcontext.htm
     public class UserDao
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         // Find All
         public List<User> FindAllUsers()
         {
@@ -82,8 +80,8 @@ namespace MovieNetData.DAO
 
         public User UserValidation(String username, String password) {
             User user = null;
-
-            try
+            using (var ctx = new MovieNetModelContainer())
+                try
             {
                 user = ctx.UserSet.Where(u => u.Username == username && u.Password == password).Single();
             }

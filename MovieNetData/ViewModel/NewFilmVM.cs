@@ -36,7 +36,7 @@ namespace MovieNetData.ViewModel
 
         public Boolean IsValidInfo() {
             Boolean isValid = true;
-            if (String.IsNullOrWhiteSpace(NewFilm.Titre) == true)
+            if (String.IsNullOrWhiteSpace(NewFilm.Title) == true)
             {
                 isValid = false;
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Title is a required field"));
@@ -58,7 +58,7 @@ namespace MovieNetData.ViewModel
         {
             if (IsValidInfo() == true)
             {
-                serviceFacade.FilmDao.createFilm(NewFilm);
+                serviceFacade.FilmDao.CreateFilm(NewFilm);
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done, in theory"));
             }
         }
