@@ -37,7 +37,7 @@ namespace MovieNetData.ViewModel
 
         private void NotifyUserMethod(NotificationMessage message)
         {
-            MessageBox.Show(message.Notification);
+            //MessageBox.Show(message.Notification);
         }
 
     }

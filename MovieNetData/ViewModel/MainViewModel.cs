@@ -32,7 +32,6 @@ namespace MovieNetData.ViewModel
 
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
 
-
         public ObservableCollection<Film> FilmsList {
 
             get { return films; }
@@ -63,7 +62,7 @@ namespace MovieNetData.ViewModel
 
         private void LoadFilmsMethod()
         {
-            List<Film> listFucking = serviceFacade.FilmDao.findAllFilms();
+            List<Film> listFucking = serviceFacade.FilmDao.FindAllFilms();
             if (listFucking != null)
             {
                 films = new ObservableCollection<Film>();
@@ -71,7 +70,7 @@ namespace MovieNetData.ViewModel
             }
             this.RaisePropertyChanged(() => this.FilmsList);
         }
-
+        
         public Film FilmSelected {
             get {
                 return filmSelected;
@@ -86,7 +85,7 @@ namespace MovieNetData.ViewModel
         {
             if (FilmSelected != null)
             {
-                serviceFacade.FilmDao.upadteFilm(filmSelected);
+                serviceFacade.FilmDao.UpdateFilm(filmSelected);
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done! In theory..."));
             }
             else

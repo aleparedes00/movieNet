@@ -8,140 +8,158 @@ namespace MovieNetData.DAO
 {
     public class FilmDao
     {
-        private static MovieNetModelContainer ctx = new MovieNetModelContainer();
-
         // Find All
-        public List<Film> findAllFilms() {
-
-            List<Film> allFilms = new List<Film>();
-
-            try
+        public List<Film> FindAllFilms()
+        {
+            using (var ctx = new MovieNetModelContainer())
             {
-                allFilms = ctx.FilmSet.ToList();
+                List<Film> allFilms = new List<Film>();
+
+                try
+                {
+                    allFilms = ctx.FilmSet.ToList();
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("[FILM DAO] Nothing found.");
+                }
+                return allFilms;
             }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("[FILM DAO] Nothing found." );
-            }
-            return allFilms;
         }
 
         // Find by criteria
-        public List<Film> findByGenre(string genre) 
+        public List<Film> FindFilmsByGenre(string genre) 
         {
-            List<Film> filmsByGenre = new List<Film>();
-            try
+            using (var ctx = new MovieNetModelContainer())
             {
-                filmsByGenre = ctx.FilmSet.Where(f => f.Genres.Contains(genre)).ToList();
+                List<Film> filmsByGenre = new List<Film>();
+                try
+                {
+                    filmsByGenre = ctx.FilmSet.Where(f => f.Genres.Contains(genre)).ToList();
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("[FILM DAO] Nothing Found under genre: " + genre);
+                }
+                return filmsByGenre;
             }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("[FILM DAO] Nothing Found under genre: " + genre);
-            }
-            return filmsByGenre;
         }
 
-        public List<Film> findByTitle(string title)
+        public List<Film> FindFilmsByTitle(string title)
         {
-            List<Film> filmsByTitle = new List<Film>();
-            try
+            using (var ctx = new MovieNetModelContainer())
             {
-                filmsByTitle = ctx.FilmSet.Where(f => f.Titre.Contains(title)).ToList();
+                List<Film> filmsByTitle = new List<Film>();
+                try
+                {
+                    filmsByTitle = ctx.FilmSet.Where(f => f.Title.Contains(title)).ToList();
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("[FILM DAO] Nothing Found under title :" + title);
+                }
+                return filmsByTitle;
             }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("[FILM DAO] Nothing Found under title :" + title);
-            }
-            return filmsByTitle;
         }
 
-        public Film findById(int id)
+        public Film FindFilmById(int id)
         {
-            Film filmById = null;
-            try
+            using (var ctx = new MovieNetModelContainer())
             {
-                filmById = ctx.FilmSet.Where(f => f.Id.Equals(id)).Single();
+                Film filmById = null;
+                try
+                {
+                    filmById = ctx.FilmSet.Where(f => f.Id.Equals(id)).Single();
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("[FILM DAO] Nothing Found under id:" + id);
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("[FILM DAO] Film not found");
+                }
+                return filmById;
             }
-            catch (ArgumentNullException)
-            {
-                Console.WriteLine("[FILM DAO] Nothing Found under id:" + id);
-            }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("[FILM DAO] Film not found");
-            }
-            return filmById;
         }
 
         // CRUD
-        public Film createFilm(Film film) {
-            ctx.FilmSet.Add(film);
-
-            try
+        public Film CreateFilm(Film film) {
+            using (var ctx = new MovieNetModelContainer())
             {
-                ctx.SaveChanges();
-            }
-            catch
-            {
-                Console.WriteLine("[FILM DAO] Error executing query");
-                return null;
-            }
-            return film;
-        }
-
-        // Methods with one return. It is advised to make only one return on the method.
-        public Film upadteFilm(Film film) {
-            Film filmToUpdate = findById(film.Id);
-
-            if (filmToUpdate != null)
-            {
-                filmToUpdate = film;
-                try
-                {
-                    int num = ctx.SaveChanges();
-                    Console.WriteLine(num);
-                }
-                catch
-                {
-                    Console.WriteLine("[FILM DAO] Error updating.");
-                    filmToUpdate = null;
-                }
-            }
-            else
-            {
-                filmToUpdate = null;
-                Console.WriteLine("Couldn't update the film " + film.Titre);
-            }
-            return filmToUpdate;
-        }
-
-        public Boolean deleteFilm(int idFilm) {
-            Film filmToDelete = findById(idFilm);
-            Boolean isDeleted = false;
-
-            if (filmToDelete != null)
-            {
-                ctx.FilmSet.Remove(filmToDelete);
+                ctx.FilmSet.Add(film);
 
                 try
                 {
                     ctx.SaveChanges();
-                    isDeleted = true;
                 }
                 catch
                 {
-                    Console.WriteLine("[FILM DAO] Couldn't delete the film " + filmToDelete.Titre);
-
+                    Console.WriteLine("[FILM DAO] Error executing query");
+                    return null;
                 }
+                return film;
             }
-            else
-            {
-                Console.WriteLine("[FILM DAO] Couldn't find the film " + filmToDelete.Titre);
-            }
-
-            return isDeleted;
         }
 
+        // Methods with one return. It is advised to make only one return on the method.
+        public Film UpdateFilm(Film film) {
+            using (var ctx = new MovieNetModelContainer())
+            { 
+                Film filmToUpdate = FindFilmById(film.Id);
 
+                if (filmToUpdate != null)
+                {
+                    filmToUpdate = film;
+                    try
+                    {
+                        int num = ctx.SaveChanges();
+                        Console.WriteLine(num);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("[FILM DAO] Error updating.");
+                        filmToUpdate = null;
+                    }
+                }
+                else
+                {
+                    filmToUpdate = null;
+                    Console.WriteLine("Couldn't update the film " + film.Title);
+                }
+                return filmToUpdate;
+            }
+        }
+
+        public Boolean DeleteFilm(Film deletedFilm) {
+            using (var ctx = new MovieNetModelContainer())
+            {
+                Film filmToDelete = FindFilmById(deletedFilm.Id);
+                Boolean isDeleted = false;
+
+                if (filmToDelete != null)
+                {
+                    ctx.FilmSet.Attach(filmToDelete);
+                    ctx.FilmSet.Remove(filmToDelete);
+
+                    try
+                    {
+                        ctx.SaveChanges();
+                        isDeleted = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("[FILM DAO] Couldn't delete the film " + filmToDelete.Title);
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("[FILM DAO] Couldn't find the film " + filmToDelete.Title);
+                }
+
+                return isDeleted;
+            }
+        }
     }
 }

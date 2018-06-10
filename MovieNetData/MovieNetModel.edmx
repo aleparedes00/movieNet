@@ -23,7 +23,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Titre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Genres" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Synopsis" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Score" Type="float" Nullable="true" />
@@ -96,7 +96,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Titre" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Genres" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Synopsis" Type="String" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Score" Type="Double" Nullable="true" />
@@ -143,7 +143,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(MovieNetModel.Film)">
         <MappingFragment StoreEntitySet="FilmSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Titre" ColumnName="Titre" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Genres" ColumnName="Genres" />
           <ScalarProperty Name="Synopsis" ColumnName="Synopsis" />
           <ScalarProperty Name="Score" ColumnName="Score" />

@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 05/31/2018 15:49:44
--- Generated from EDMX file: C:\Users\student\Desktop\MovieNet\MovieNetData\MovieNetModel.edmx
+-- Date Created: 05/03/2018 11:43:35
+-- Generated from EDMX file: C:\Users\norud\Documents\Piscine ETNA\MovieNet\MovieNetData\MovieNetModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -45,7 +45,7 @@ GO
 -- Creating table 'FilmSet'
 CREATE TABLE [dbo].[FilmSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
-    [Titre] nvarchar(max)  NOT NULL,
+    [Title] nvarchar(max)  NOT NULL,
     [Genres] nvarchar(max)  NOT NULL,
     [Synopsis] nvarchar(max)  NULL,
     [Score] float  NULL,
