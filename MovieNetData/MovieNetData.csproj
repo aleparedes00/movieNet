@@ -109,11 +109,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NewFilmVM.cs" />
+    <Compile Include="ViewModel\RegistrationVM.cs" />
     <Compile Include="ViewModel\ServiceFacade.cs" />
     <Compile Include="User.cs">
       <DependentUpon>MovieNetModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\Testing.cs" />
     <Compile Include="ViewModel\VMLocator.cs" />
   </ItemGroup>
   <ItemGroup>

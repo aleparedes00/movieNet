@@ -1,0 +1,57 @@
+﻿<Page x:Class="MovieNet.NewFilmView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="459.507"
+      Title="NewFilmView">
+    <DockPanel LastChildFill="True" DataContext="{Binding NewFilmVM, Source={StaticResource VMLocator}}" Background="CadetBlue">
+        <DockPanel DockPanel.Dock="Top">
+            <Grid Margin="20">
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Height" Value="25" />
+                        <Setter Property="Margin" Value="10, 10, 20, 0" />
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                   <ColumnDefinition Width="Auto" />
+                   <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Content="Title" />
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding NewFilm.Titre}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Genres" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding NewFilm.Genres}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Synopsis" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding NewFilm.Synopsis}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Content="Director" />
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding NewFilm.Director}" />
+
+                <Label Grid.Row="4" Grid.Column="0" Content="Rate this" />
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding NewFilm.Score}" />
+
+                <Label Grid.Row="5" Grid.Column="0" Content="Year" />
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding NewFilm.Year}" />
+            </Grid>
+        </DockPanel>
+        <DockPanel DockPanel.Dock="Bottom" Margin="20" Height="70">
+            <Button Content="Back Click" Width="200" Height="25" Command="{Binding BackButtonCommand}" />
+            <Button Content="Save Film" Width="200" Height="25" Command="{Binding SaveFilmCommand}" />
+        </DockPanel>
+    </DockPanel>
+</Page>

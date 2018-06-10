@@ -51,24 +51,21 @@ namespace MovieNetData.ViewModel
             }
         }
 
-        void M(PasswordBox P)
-        { }
-
         public void BackCommandMethod() {
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This is the back button"));
         }
 
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
-
+        
+        //Il y a un probleme de context avec la DB
         public void LoginCommandMethod() {
-            if (Username != null && Password != null)
+            if (!(String.IsNullOrEmpty(Username)) && !(String.IsNullOrEmpty(Password)))
             {
                 User user = serviceFacade.UserDao.UserValidation(Username, Password);
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Welcome to MovieNew" + Username));
             }
             else
             {
-                Console.WriteLine("Username -> " + _username + " pass -> " + Password);
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Check your info. Something is wrong"));
             }
         }

@@ -21,7 +21,12 @@ namespace MovieNetData.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginVM>();
+            SimpleIoc.Default.Register<NewFilmVM>();
+            SimpleIoc.Default.Register<RegistrationVM>();
             Messenger.Default.Register<NotificationMessage>(this, NotifyUserMethod);
+        }
+        public RegistrationVM RegistrationVM {
+            get { return ServiceLocator.Current.GetInstance<RegistrationVM>(); }
         }
 
         public LoginVM LoginVM
@@ -33,6 +38,11 @@ namespace MovieNetData.ViewModel
         {
             get { return ServiceLocator.Current.GetInstance<MainViewModel>(); }
 
+        }
+
+        public NewFilmVM NewFilmVM
+        {
+            get { return ServiceLocator.Current.GetInstance<NewFilmVM>(); }
         }
 
         private void NotifyUserMethod(NotificationMessage message)

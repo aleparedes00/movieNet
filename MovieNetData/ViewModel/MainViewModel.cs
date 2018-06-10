@@ -38,25 +38,9 @@ namespace MovieNetData.ViewModel
             get { return films; }
         }
 
-        private Film newFilm;
-
-        public Film NewFilm
-        {
-            get { return newFilm; }
-            set {
-                newFilm = value;
-                RaisePropertyChanged("NewFilm");
-            }
-        }
-        //Wrong, the method NewFilmCommandMethod only will send the user to another view. I keep the code to have the reference
-        private string title;
-        private string genres;
-        private string synopsis;
-
+       
         public void NewFilmCommandMethod() {
-            //if (String.IsNullOrEmpty(title) == true) {
-            //  Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Plese, introduce a title"));
-            //}
+            
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
         }
             
