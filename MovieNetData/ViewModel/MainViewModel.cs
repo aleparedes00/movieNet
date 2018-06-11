@@ -15,7 +15,9 @@ namespace MovieNetData.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private ObservableCollection<Film> films;
+        private List<Comment> _comments;
         private Film filmSelected;
+
 
         public ViewModelBase CurrentView { get; set; }
 
@@ -24,11 +26,11 @@ namespace MovieNetData.ViewModel
             LoadFilmsMethod();
             NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
-           // MyCommand = new RelayCommand(MyCommandExecute, MyCommandCanExecute);
         }
             
         public ICommand NewFilmCommand { get; private set; }
         public ICommand SaveFilmsCommand { get; private set; }
+        
 
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
 
@@ -37,7 +39,13 @@ namespace MovieNetData.ViewModel
             get { return films; }
         }
 
-       
+        public List<Comment> Comments
+        {
+            get { return _comments; }
+            set { _comments = value;
+                RaisePropertyChanged("Comments");
+            }
+        }
         public void NewFilmCommandMethod() {
             
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
@@ -46,11 +54,11 @@ namespace MovieNetData.ViewModel
 
         private void LoadFilmsMethod()
         {
-            List<Film> listFucking = serviceFacade.FilmDao.FindAllFilms();
-            if (listFucking != null)
+            List<Film> listDao = serviceFacade.FilmDao.FindAllFilms();
+            if (listDao != null)
             {
                 films = new ObservableCollection<Film>();
-                listFucking.ForEach(f => films.Add(f));
+                listDao.ForEach(f => films.Add(f));
             }
             this.RaisePropertyChanged(() => this.FilmsList);
         }
@@ -61,6 +69,7 @@ namespace MovieNetData.ViewModel
             }
             set {
                 filmSelected = value;
+                _comments = serviceFacade.GetFilmComments(filmSelected.Id);
                 RaisePropertyChanged("FilmSelected");
             }
         }

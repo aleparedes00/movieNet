@@ -5,9 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
         mc:Ignorable="d"
-        
-        Title="MovieNet" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        DataContext="{Binding HomeVM, Source={StaticResource VMLocator}}"
+        Title="MovieNet" Height="450" Width="800" FontSize="16" Background="ForestGreen">
+
+    <Border Background="Black" CornerRadius="20" Margin="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Welcomme to MovieNet" FontSize="20" Foreground="White" HorizontalAlignment="Center" />
+            <Button x:Name="Loginbtn" Content="Login" Command="{Binding LoginViewCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Background="Gray" Foreground="White" FontSize="18" Width="76" />
+            <Button x:Name="Registrationbtn" Content="Registration" Command="{Binding RegistrationViewCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Background="Gray" Foreground="White" FontSize="18" Width="150" />
+        </Grid>
+
+    </Border>
 </Window>

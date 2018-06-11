@@ -8,7 +8,7 @@
         Title="MainWindow" Height="720.814" Width="1281.448">
     <DockPanel LastChildFill="True" DataContext="{Binding MainVM, Source={StaticResource VMLocator}}">
        
-        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Titre" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15"/>
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15"/>
 
         <DockPanel DockPanel.Dock="Bottom">
             <Button DockPanel.Dock="Left" Content="New film" Width="200" Height="25" Command="{Binding NewFilmCommand}" />
@@ -29,6 +29,11 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -36,16 +41,35 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.Column="0" Content="Title" />
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilmSelected.Titre}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilmSelected.Title}" />
             
             <Label Grid.Row="1" Grid.Column="0" Content="Genres" />
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FilmSelected.Genres}" />
             
             <Label Grid.Row="2" Grid.Column="0" Content="Synopsis" />
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FilmSelected.Synopsis}" />
-            
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FilmSelected.Synopsis}" TextWrapping="Wrap" Height="50"/>
+
             <Label Grid.Row="3" Grid.Column="0" Content="Director" />
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding FilmSelected.Director}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Year" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding FilmSelected.Year}" />
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Score" />
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" />
+
+            <Label Grid.Row="6" Grid.Column="0" Content="Comments" />
+            <ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Text}"/>
+                            <TextBlock Text="{Binding User.Username}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
         </Grid>
     </DockPanel>
     

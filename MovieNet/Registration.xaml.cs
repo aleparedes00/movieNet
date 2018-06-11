@@ -17,7 +17,7 @@ namespace MovieNet
     /// <summary>
     /// Interaction logic for Registration.xaml
     /// </summary>
-    public partial class Registration : Window
+    public partial class Registration : UserControl
     {
         public Registration()
         {

@@ -23,8 +23,14 @@ namespace MovieNetData.ViewModel
             SimpleIoc.Default.Register<LoginVM>();
             SimpleIoc.Default.Register<NewFilmVM>();
             SimpleIoc.Default.Register<RegistrationVM>();
+            SimpleIoc.Default.Register<HomeVM>();
             Messenger.Default.Register<NotificationMessage>(this, NotifyUserMethod);
         }
+
+        public HomeVM HomeVM {
+            get { return ServiceLocator.Current.GetInstance<HomeVM>(); }
+        }
+
         public RegistrationVM RegistrationVM {
             get { return ServiceLocator.Current.GetInstance<RegistrationVM>(); }
         }
