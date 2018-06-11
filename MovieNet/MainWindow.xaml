@@ -59,12 +59,12 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" />
 
             <Label Grid.Row="6" Grid.Column="0" Content="Comments" />
-            <ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}">
+            <ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock Text="{Binding Text}"/>
-                            <TextBlock Text="{Binding User.Username}"/>
+                            
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>

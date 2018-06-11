@@ -24,6 +24,7 @@ namespace MovieNetData.ViewModel
         public MainViewModel()
         {
             LoadFilmsMethod();
+            _comments = new List<Comment>();
             NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
         }
@@ -50,7 +51,17 @@ namespace MovieNetData.ViewModel
             
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
         }
-            
+
+        public void affectComment()
+        {
+            User user = serviceFacade.UserDao.FindUserById(1);
+            user.Comment = serviceFacade.GetUserComments(user.Id);
+            Film film = FilmSelected;
+            var id = FilmSelected.Id;
+            FilmSelected.Comment = serviceFacade.GetFilmComments(id);
+            //Comment testComment = new Comment("I liked it", user, film);
+            //_comments.Add(testComment);
+        }
 
         private void LoadFilmsMethod()
         {
@@ -69,7 +80,8 @@ namespace MovieNetData.ViewModel
             }
             set {
                 filmSelected = value;
-                _comments = serviceFacade.GetFilmComments(filmSelected.Id);
+                //_comments = serviceFacade.GetFilmComments(filmSelected.Id);
+                affectComment();
                 RaisePropertyChanged("FilmSelected");
             }
         }
