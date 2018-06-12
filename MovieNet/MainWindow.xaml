@@ -7,13 +7,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720.814" Width="1281.448">
     <DockPanel LastChildFill="True" DataContext="{Binding MainVM, Source={StaticResource VMLocator}}">
-       
-        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15"/>
+        
+        <Button DockPanel.Dock="Top" Content="Profile" Command="{Binding ProfileCommand}" Width="100" HorizontalAlignment="Right" Margin="0 20 30 0" />
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="500" FontSize="15" BorderThickness="0"/>
 
-        <DockPanel DockPanel.Dock="Bottom">
+        <DockPanel DockPanel.Dock="Bottom" Margin="20" VerticalAlignment="Center">
             <Button DockPanel.Dock="Left" Content="New film" Width="200" Height="25" Command="{Binding NewFilmCommand}" />
             <Button DockPanel.Dock="Right" Content="Save Film" Width="200" Height="25" Command="{Binding SaveFilmsCommand}" />
         </DockPanel>
+        
         <Grid>
             <Grid.Resources>
                 <Style TargetType="{x:Type TextBox}">
@@ -56,10 +58,10 @@
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding FilmSelected.Year}" />
 
             <Label Grid.Row="5" Grid.Column="0" Content="Score" />
-            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" />
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" VerticalAlignment="Center"/>
 
             <Label Grid.Row="6" Grid.Column="0" Content="Comments" />
-            <ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
+            <!--<ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -68,9 +70,17 @@
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+            </ListBox>-->
+            <!--<ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
 
         </Grid>
+       
     </DockPanel>
     
 </Window>

@@ -13,21 +13,21 @@ namespace MovieNetData.ViewModel
 {
     public class HomeVM : ViewModelBase
     {
-        private UserControl _registration;
+        private UserControl _registration { get; set; }
         private int index;
 
         public RelayCommand ChangeViewCommand { get; }
 
         public HomeVM()
         {
-            this._registration = null;
+            this.CurrentView = null;
             this.index = 0;
 
             this.ChangeViewCommand = new RelayCommand(ChangeView, true);
             RegistrationCommand = new RelayCommand(RegistrationCommandMethod);
         }
 
-        public UserControl Registration
+        public UserControl CurrentView
         {
             get { return this._registration; }
             set
@@ -49,7 +49,7 @@ namespace MovieNetData.ViewModel
 
         public void RegistrationCommandMethod()
         {
-            
+           
         }
     }
 }

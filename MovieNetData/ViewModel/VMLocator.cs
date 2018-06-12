@@ -24,9 +24,14 @@ namespace MovieNetData.ViewModel
             SimpleIoc.Default.Register<NewFilmVM>();
             SimpleIoc.Default.Register<RegistrationVM>();
             SimpleIoc.Default.Register<HomeVM>();
+            SimpleIoc.Default.Register<ProfileVM>();
             Messenger.Default.Register<NotificationMessage>(this, NotifyUserMethod);
         }
 
+        public ProfileVM ProfileVM
+        {
+            get { return ServiceLocator.Current.GetInstance<ProfileVM>(); }
+        }
         public HomeVM HomeVM {
             get { return ServiceLocator.Current.GetInstance<HomeVM>(); }
         }
@@ -53,7 +58,7 @@ namespace MovieNetData.ViewModel
 
         private void NotifyUserMethod(NotificationMessage message)
         {
-            //MessageBox.Show(message.Notification);
+            MessageBox.Show(message.Notification);
         }
 
     }

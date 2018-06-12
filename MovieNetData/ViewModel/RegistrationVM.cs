@@ -18,7 +18,8 @@ namespace MovieNetData.ViewModel
 
         private void PasswordChangerEvent(PasswordBox passwordBox)
         {
-            if (passwordBox != null) {
+            if (passwordBox != null)
+            {
                 Console.WriteLine(passwordBox.Password);
                 Password = passwordBox.Password;
             }
@@ -65,7 +66,7 @@ namespace MovieNetData.ViewModel
 
         public void RegistrationButtonMethod() {
             User user = new User(Username, Password);
-            servicefacade.UserDao.CreateUser(user);
+            servicefacade.CreateUser(user);
             Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done, in theory!"));
         }
 

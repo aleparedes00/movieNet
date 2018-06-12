@@ -110,7 +110,6 @@ namespace MovieNetData.DAO
 
                 if (filmToUpdate != null)
                 {
-                    filmToUpdate = film;
                     try
                     {
                         int num = ctx.SaveChanges();

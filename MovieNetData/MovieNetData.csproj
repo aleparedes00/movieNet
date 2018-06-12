@@ -111,6 +111,7 @@
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\NewFilmVM.cs" />
+    <Compile Include="ViewModel\ProfileVM.cs" />
     <Compile Include="ViewModel\RegistrationVM.cs" />
     <Compile Include="ViewModel\ServiceFacade.cs" />
     <Compile Include="User.cs">
