@@ -9,22 +9,18 @@ namespace MovieNetData.ViewModel
 {
     public class RegistrationVM : ViewModelBase
     {
+        //TODO: Navigation Missing button for back (to home view)
+
         public RegistrationVM()
         {
             RegistrationCommand = new RelayCommand(RegistrationButtonMethod);
             this._password = String.Empty;
             this.PasswordChangedCommand = new RelayCommand<PasswordBox>(PasswordChangerEvent, true);
         }
+        //Buttons
+        public ICommand RegistrationCommand { get; private set; }
 
-        private void PasswordChangerEvent(PasswordBox passwordBox)
-        {
-            if (passwordBox != null)
-            {
-                Console.WriteLine(passwordBox.Password);
-                Password = passwordBox.Password;
-            }
-        }
-
+        //_variables and Properties
         private string _username;
 
         public string Username
@@ -44,12 +40,20 @@ namespace MovieNetData.ViewModel
             set { _password = value; }
         }
 
-        ServiceFacade servicefacade = ServiceFacade.Instance;
-        public ICommand RegistrationCommand { get; private set; }
-        
+        //Password Logic
+        private void PasswordChangerEvent(PasswordBox passwordBox)
+        {
+            if (passwordBox != null)
+            {
+                Console.WriteLine(passwordBox.Password);
+                Password = passwordBox.Password;
+            }
+        }
+
         public RelayCommand<PasswordBox> PasswordChangedCommand { get; }
 
-        public bool isValidInfo() {
+        public bool isValidInfo()
+        {
             bool isValid = true;
             if (string.IsNullOrWhiteSpace(Username) == true)
             {
@@ -64,6 +68,10 @@ namespace MovieNetData.ViewModel
             return isValid;
         }
 
+        //Services
+        ServiceFacade servicefacade = ServiceFacade.Instance;
+        
+        //Command Methods
         public void RegistrationButtonMethod() {
             User user = new User(Username, Password);
             servicefacade.CreateUser(user);

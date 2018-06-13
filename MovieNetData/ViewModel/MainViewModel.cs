@@ -11,13 +11,33 @@ using GalaSoft.MvvmLight.Messaging;
 
 namespace MovieNetData.ViewModel
 {
-    //This class has the content for the property (The label inside MainWindow.xaml called label1)
     public class MainViewModel : ViewModelBase
     {
-        private ObservableCollection<Film> films;
+
+        public ViewModelBase CurrentView { get; set; }
+
+        //Constrocteur
+        public MainViewModel()
+        {
+            //TODO PROF: How should I create the access to the comments
+            filmToUpdate = null;
+            _filmSelected = new Film(_title, _genres, _synopsis, _director);
+            comentarios = new HashSet<Comment>();
+            _comments = new List<Comment>();
+
+            //Create the films to show
+            LoadFilmsMethod();
+            //Commands
+            NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
+            SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
+            ProfileCommand = new RelayCommand(ProfileCommandMethod);
+        }
+        //_variables
+        private ObservableCollection<Film> _films;
         private ICollection<Comment> comentarios;
         private List<Comment> _comments;
-        private Film filmSelected;
+        private Film _filmSelected;
+        public Film filmToUpdate;
         private string _title = "";
         private string _genres = "";
         private string _synopsis = "";
@@ -25,31 +45,49 @@ namespace MovieNetData.ViewModel
         private short _year;
         private double _score;
 
-        public ViewModelBase CurrentView { get; set; }
-
-        //Constrocteur
-        public MainViewModel()
-        {
-            filmSelected = new Film(_title, _genres, _synopsis, _director);
-            comentarios = new HashSet<Comment>();
-            LoadFilmsMethod();
-            _comments = new List<Comment>();
-            NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
-            SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
-            ProfileCommand = new RelayCommand(ProfileCommandMethod);
-        }
-         
         //Buttons
         public ICommand NewFilmCommand { get; private set; }
         public ICommand SaveFilmsCommand { get; private set; }
         public ICommand ProfileCommand { get; private set; }
-
+        //Services
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
 
+        //Properties
         public ObservableCollection<Film> FilmsList {
 
-            get { return films; }
+            get { return _films; }
+            set
+            {
+                //LoadFilmsMethod();
+                RaisePropertyChanged(() => FilmsList);
+            }
         }
+        public Film FilmSelected
+        {
+            get
+            {
+                return _filmSelected;
+            }
+            set
+            {
+                _filmSelected = value;
+                //_comments = serviceFacade.GetFilmComments(filmSelected.Id);
+                //affectComment();
+                RaisePropertyChanged("FilmSelected");
+            }
+        }
+
+        private void LoadFilmsMethod()
+        {
+            List<Film> listDao = serviceFacade.FilmDao.FindAllFilms();
+            if (listDao != null)
+            {
+                _films = new ObservableCollection<Film>();
+                listDao.ForEach(f => _films.Add(f));
+            }
+            RaisePropertyChanged(() => FilmsList);
+        }
+
         //HasSet approch
         public HashSet<Comment> Comentarios
         {
@@ -67,47 +105,6 @@ namespace MovieNetData.ViewModel
             }
         }
 
-        //Buttons Methods
-        public void NewFilmCommandMethod() {
-            
-            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
-        }
-
-        public void SaveFilmsCommandMethod()
-        {
-            if (FilmSelected != null)
-            {
-                var film = serviceFacade.FilmDao.UpdateFilm(filmSelected);
-                Console.WriteLine(film.Director);
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done! In theory..."));
-            }
-            else
-            {
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("You have to select a film"));
-            }
-        }
-
-        public void ProfileCommandMethod()
-        {
-            //Go to ProfileVM
-        }
-
-        public Film FilmSelected
-        {
-            get
-            {
-                return filmSelected;
-            }
-            set
-            {
-
-                filmSelected = value;
-                //_comments = serviceFacade.GetFilmComments(filmSelected.Id);
-                //affectComment();
-                RaisePropertyChanged("FilmSelected");
-            }
-        }
-
         public void affectComment()
         {
             FilmSelected.Comment = Comentarios;
@@ -120,18 +117,77 @@ namespace MovieNetData.ViewModel
             //_comments.Add(testComment);
         }
 
-        private void LoadFilmsMethod()
-        {
-            List<Film> listDao = serviceFacade.FilmDao.FindAllFilms();
-            if (listDao != null)
-            {
-                films = new ObservableCollection<Film>();
-                listDao.ForEach(f => films.Add(f));
-            }
-            this.RaisePropertyChanged(() => this.FilmsList);
+        //Buttons Methods
+        public void NewFilmCommandMethod() {
+            
+            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
         }
-        
- 
+
+        public Boolean IsValidInfo()
+        {
+            Boolean isValid = true;
+            if (String.IsNullOrWhiteSpace(FilmSelected.Title) == true)
+            {
+                isValid = false;
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Title is a required field"));
+            }
+            else if (String.IsNullOrWhiteSpace(FilmSelected.Genres) == true)
+            {
+                isValid = false;
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Genres is a required field"));
+            }
+            else if (String.IsNullOrWhiteSpace(FilmSelected.Synopsis) == true)
+            {
+                isValid = false;
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Synopsis is a required field"));
+            }
+            else if (String.IsNullOrWhiteSpace(FilmSelected.Director) == true)
+            {
+                isValid = false;
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Director is a required field"));
+            }
+            if (isValid == true)
+            {
+                //filmToUpdate = new Film();
+                filmToUpdate = serviceFacade.FilmDao.FindFilmById(FilmSelected.Id);
+                filmToUpdate.Title = FilmSelected.Title;
+                filmToUpdate.Genres = FilmSelected.Genres;
+                filmToUpdate.Synopsis = FilmSelected.Synopsis;
+                filmToUpdate.Director = FilmSelected.Director;
+                if (FilmSelected.Score != null)
+                {
+                    filmToUpdate.Score = FilmSelected.Score;
+                }
+                if (FilmSelected.Year != null)
+                {
+                    filmToUpdate.Year = FilmSelected.Year;
+                }
+            }
+            return isValid;
+        }
+
+        public void SaveFilmsCommandMethod()
+        {
+            if (IsValidInfo())
+            {
+                if (filmToUpdate != null)
+                {
+                    var film = serviceFacade.FilmDao.UpdateFilm(filmToUpdate);
+                    Console.WriteLine(film.Director);//Test
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done! In theory..."));
+                }
+            }
+            else
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("You have to select a film"));
+            }
+        }
+
+        public void ProfileCommandMethod()
+        {
+            //TODO: Navigation Go to ProfileVM
+        }
+
 
     }
 }
