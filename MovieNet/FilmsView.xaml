@@ -59,17 +59,8 @@
             <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" VerticalAlignment="Center"/>
 
             <Label Grid.Row="6" Grid.Column="0" Content="Comments" />
-            <!--<ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding Text}"/>
-                            
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
-            <ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}">
+            
+            <ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}" Width="auto">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Text}"/>
