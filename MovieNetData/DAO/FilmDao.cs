@@ -161,12 +161,19 @@ namespace MovieNetData.DAO
         public Boolean DeleteFilm(Film deletedFilm) {
             using (var ctx = new MovieNetModelContainer())
             {
-                Film filmToDelete = FindFilmById(deletedFilm.Id);
+                Film filmToDelete = FindFilmByIdPrivate(deletedFilm.Id, ctx);
+                filmToDelete.Id = deletedFilm.Id;
+                filmToDelete.Title = deletedFilm.Title;
+                filmToDelete.Genres = deletedFilm.Genres;
+                filmToDelete.Synopsis = deletedFilm.Synopsis;
+                filmToDelete.Score = deletedFilm.Score;
+                filmToDelete.Year = deletedFilm.Year;
+                filmToDelete.Director = deletedFilm.Director;
                 Boolean isDeleted = false;
 
                 if (filmToDelete != null)
                 {
-                    ctx.FilmSet.Attach(filmToDelete);
+                    //ctx.FilmSet.Attach(filmToDelete);
                     ctx.FilmSet.Remove(filmToDelete);
 
                     try

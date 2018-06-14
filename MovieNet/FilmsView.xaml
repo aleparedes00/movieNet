@@ -10,7 +10,7 @@
         <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="250" FontSize="15" BorderThickness="0"/>
 
         <DockPanel DockPanel.Dock="Bottom" Margin="45.4,20,13.4,20" VerticalAlignment="Center">
-            <Button DockPanel.Dock="Left" Content="New comment" Width="150" Height="25" Command="{Binding NewCommentViewCommand}" />
+            <Button DockPanel.Dock="Left" Content="Delete Film" Width="150" Height="25" Command="{Binding DeleteFilmCommand}" />
             <Button DockPanel.Dock="Right" Content="Save changes" Width="150" Height="25" Command="{Binding SaveFilmsCommand}" />
         </DockPanel>
         

@@ -50,6 +50,7 @@ namespace MovieNetData.ViewModel
         public ICommand NewFilmCommand { get; private set; }
         public ICommand SaveFilmsCommand { get; private set; }
         public ICommand ProfileCommand { get; private set; }
+        public ICommand DeleteFilmCommand { get; private set; }
 
         //Services
         private static ServiceFacade serviceFacade = ServiceFacade.Instance;
@@ -65,9 +66,11 @@ namespace MovieNetData.ViewModel
             //Create the films to show
             LoadFilmsMethod();
             //Commands
+            
             NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
             ProfileCommand = new RelayCommand(ProfileCommandMethod);
+            DeleteFilmCommand = new RelayCommand(DeleteFilmCommandMethod);
         }
 
         //Properties
@@ -76,7 +79,7 @@ namespace MovieNetData.ViewModel
             get { return _films; }
             set
             {
-                //LoadFilmsMethod();
+                _films = value;
                 RaisePropertyChanged(() => FilmsList);
             }
         }
@@ -90,7 +93,6 @@ namespace MovieNetData.ViewModel
             {
                 _filmSelected = value;
                 Comments = serviceFacade.GetFilmComments(_filmSelected.Id);
-                //affectComment();
                 RaisePropertyChanged("FilmSelected");
             }
         }
@@ -106,14 +108,6 @@ namespace MovieNetData.ViewModel
             RaisePropertyChanged(() => FilmsList);
         }
 
-        //HasSet approch
-        public HashSet<Comment> Comentarios
-        {
-            get { return (HashSet<Comment>) comentarios; }
-            set { comentarios = value;
-                RaisePropertyChanged("Comemtarios");
-            }
-        }
         //List approch
         public List<Comment> Comments
         {
@@ -121,18 +115,6 @@ namespace MovieNetData.ViewModel
             set { _comments = value;
                 RaisePropertyChanged("Comments");
             }
-        }
-
-        public void affectComment()
-        {
-            FilmSelected.Comment = Comentarios;
-            //User user = serviceFacade.UserDao.FindUserById(1);
-            //user.Comment = serviceFacade.GetUserComments(user.Id);
-            //Film film = FilmSelected;
-            //var id = FilmSelected.Id;
-            //FilmSelected.Comment = serviceFacade.GetFilmComments(id);
-            //Comment testComment = new Comment("I liked it", user, film);
-            //_comments.Add(testComment);
         }
 
         //Buttons Methods
@@ -191,13 +173,30 @@ namespace MovieNetData.ViewModel
                 if (filmToUpdate != null)
                 {
                     var film = serviceFacade.FilmDao.UpdateFilm(filmToUpdate);
-                    Console.WriteLine(film.Director);//Test
+                    
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done! In theory..."));
                 }
             }
             else
             {
                 Messenger.Default.Send<NotificationMessage>(new NotificationMessage("You have to select a film"));
+            }
+        }
+
+        public void DeleteFilmCommandMethod()
+        {
+            if (String.IsNullOrWhiteSpace(FilmSelected.Title))
+            {
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("You have to select a film"));
+            }
+            else
+            {
+                var result = serviceFacade.FilmDao.DeleteFilm(FilmSelected);
+                if (result)
+                {
+                    RaisePropertyChanged("FilmsList");
+                    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done, in theory"));
+                }
             }
         }
 
