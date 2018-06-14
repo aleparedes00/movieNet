@@ -1,11 +1,6 @@
 ﻿using CommonServiceLocator;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MovieNetData.ViewModel
@@ -20,12 +15,18 @@ namespace MovieNetData.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<FilmsVM>();
             SimpleIoc.Default.Register<LoginVM>();
             SimpleIoc.Default.Register<NewFilmVM>();
             SimpleIoc.Default.Register<RegistrationVM>();
             SimpleIoc.Default.Register<HomeVM>();
             SimpleIoc.Default.Register<ProfileVM>();
             Messenger.Default.Register<NotificationMessage>(this, NotifyUserMethod);
+        }
+
+        public FilmsVM FilmsVM
+        {
+            get { return ServiceLocator.Current.GetInstance<FilmsVM>(); }
         }
 
         public ProfileVM ProfileVM

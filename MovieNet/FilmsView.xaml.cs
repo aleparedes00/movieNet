@@ -10,18 +10,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MovieNet
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour FilmView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FilmsView : UserControl
     {
-        public MainWindow()
+        public FilmsView()
         {
             InitializeComponent();
         }
+
+
     }
 }
