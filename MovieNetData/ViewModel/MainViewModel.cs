@@ -28,7 +28,6 @@ namespace MovieNetData.ViewModel
             }
         }
 
-        private string _test = "Le binding a réussi !";
         public int Test { get; set; }
 
         //Buttons
@@ -51,6 +50,7 @@ namespace MovieNetData.ViewModel
         public void FilmsViewCommandMethod()
         {
             CurrentViewModel = _filmsViewModel;
+            _filmsViewModel.UpdateFilms();
         }
 
         public void NewFilmViewCommandMethod()

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -64,9 +61,13 @@ namespace MovieNetData.ViewModel
             _comments = new List<Comment>();
 
             //Create the films to show
+            if (FilmsList == null)
+            {
+                FilmsList = new ObservableCollection<Film>();
+            }
             LoadFilmsMethod();
+
             //Commands
-            
             NewFilmCommand = new RelayCommand(NewFilmCommandMethod);
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
             ProfileCommand = new RelayCommand(ProfileCommandMethod);
@@ -74,13 +75,13 @@ namespace MovieNetData.ViewModel
         }
 
         //Properties
-        public ObservableCollection<Film> FilmsList {
-
+        public ObservableCollection<Film> FilmsList
+        {
             get { return _films; }
             set
             {
                 _films = value;
-                RaisePropertyChanged(() => FilmsList);
+                RaisePropertyChanged("FilmsList");
             }
         }
         public Film FilmSelected
@@ -92,20 +93,30 @@ namespace MovieNetData.ViewModel
             set
             {
                 _filmSelected = value;
-                Comments = serviceFacade.GetFilmComments(_filmSelected.Id);
+                if (value != null)
+                    Comments = serviceFacade.GetFilmComments(_filmSelected.Id);
                 RaisePropertyChanged("FilmSelected");
             }
         }
 
         private void LoadFilmsMethod()
         {
+            FilmsList.Clear();
             List<Film> listDao = serviceFacade.FilmDao.FindAllFilms();
             if (listDao != null)
             {
-                _films = new ObservableCollection<Film>();
-                listDao.ForEach(f => _films.Add(f));
+                listDao.ForEach(f => FilmsList.Add(f));
+
+                //if (listDao.Count > FilmsList.Count) { 
+                //    for (int i = FilmsList.Count; i < listDao.Count - FilmsList.Count; i++)
+                //        FilmsList.Add(listDao[i]);
+                //}
             }
-            RaisePropertyChanged(() => FilmsList);
+        }
+
+        public void UpdateFilms()
+        {
+            LoadFilmsMethod();
         }
 
         //List approch
@@ -194,7 +205,7 @@ namespace MovieNetData.ViewModel
                 var result = serviceFacade.FilmDao.DeleteFilm(FilmSelected);
                 if (result)
                 {
-                    RaisePropertyChanged("FilmsList");
+                    FilmsList.Remove(FilmSelected);
                     Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done, in theory"));
                 }
             }

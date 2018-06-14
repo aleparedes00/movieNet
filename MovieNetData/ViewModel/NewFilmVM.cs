@@ -16,11 +16,10 @@ namespace MovieNetData.ViewModel
         {
             _newFilm = new Film();
             SaveFilmCommand = new RelayCommand(SaveFilmCommandMethod);
-            BackButtonCommand = new RelayCommand(BackButtonCommandMethod);
         }
+
         private static readonly ServiceFacade serviceFacade = ServiceFacade.Instance;
         public ICommand SaveFilmCommand { get; private set; }
-        public ICommand BackButtonCommand { get; private set; }
 
         private Film _newFilm;
 
@@ -59,7 +58,8 @@ namespace MovieNetData.ViewModel
             if (IsValidInfo() == true)
             {
                 serviceFacade.FilmDao.CreateFilm(NewFilm);
-                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Done, in theory"));
+                NewFilm = new Film();
+                Messenger.Default.Send<NotificationMessage>(new NotificationMessage("The film was successfully added to MovieNet!"));
             }
         }
 

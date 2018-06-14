@@ -13,44 +13,24 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<DockPanel>-->
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,30,0,0"
                 Command="{Binding FilmsViewCommand}">
-                <StackPanel>
-                    <Image Source="img/all_films.png" Height="100" Width="100" />
-                </StackPanel>
-            </Button>
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,160,0,0"
+            <StackPanel>
+                <Image Source="img/all_films.png" Height="100" Width="100" />
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,160,0,0"
                 Command="{Binding NewFilmViewCommand}">
-                <StackPanel>
-                    <Image Source="img/add_film.png" Height="100" Width="100" />
-                </StackPanel>
-            </Button>
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,290,0,0"
+            <StackPanel>
+                <Image Source="img/add_film.png" Height="100" Width="100" />
+            </StackPanel>
+        </Button>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,290,0,0"
                 Command="{Binding ProfileViewCommand}">
-                <StackPanel>
-                    <Image Source="img/profile.png" Height="100" Width="100" />
-                </StackPanel>
-            </Button>
-        <!--</DockPanel>-->
-
-        <!--<DockPanel Grid.Row="1">
-        <Button Command="{Binding ProfileViewCommand}"
-
-                    Content="Profile"
-
-                    DockPanel.Dock="Right" />
-        <Button Command="{Binding NewFilmViewCommand}"
-
-                    Content="New Film"
-
-                    DockPanel.Dock="Right" />
-        <Button Command="{Binding FilmsViewCommand}"
-
-                    Content="Films"
-
-                    DockPanel.Dock="Left" />
-        </DockPanel>-->
+            <StackPanel>
+                <Image Source="img/profile.png" Height="100" Width="100" />
+            </StackPanel>
+        </Button>
 
         <DockPanel Name="CurrentView" HorizontalAlignment="Right" Height="420" LastChildFill="False" VerticalAlignment="Top" Width="670" Margin="0,0,-0.4,0">
             <ContentControl Content="{Binding CurrentViewModel}" />

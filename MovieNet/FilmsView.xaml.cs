@@ -24,7 +24,5 @@ namespace MovieNet
         {
             InitializeComponent();
         }
-
-
     }
 }
