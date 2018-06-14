@@ -16,13 +16,15 @@ using System.Windows.Shapes;
 namespace MovieNet
 {
     /// <summary>
-    /// Interaction logic for NewFilmView.xaml
+    /// Logique d'interaction pour FilmView.xaml
     /// </summary>
-    public partial class NewFilmView : UserControl
+    public partial class FilmsView : UserControl
     {
-        public NewFilmView()
+        public FilmsView()
         {
             InitializeComponent();
         }
+
+
     }
 }

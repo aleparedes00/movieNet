@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="MovieNet.FilmsView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Height="420" Width="670">
+    <DockPanel LastChildFill="True" Background="BurlyWood" DataContext="{Binding FilmsVM, Source={StaticResource VMLocator}}">
+                
+        <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="250" FontSize="15" BorderThickness="0"/>
+
+        <DockPanel DockPanel.Dock="Bottom" Margin="45.4,20,13.4,20" VerticalAlignment="Center">
+            <Button DockPanel.Dock="Left" Content="New comment" Width="150" Height="25" Command="{Binding NewCommentViewCommand}" />
+            <Button DockPanel.Dock="Right" Content="Save changes" Width="150" Height="25" Command="{Binding SaveFilmsCommand}" />
+        </DockPanel>
+        
+        <Grid Margin="0,10,0,0.2" Width="394">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Height" Value="25" />
+                    <Setter Property="Margin" Value="10, 10, 0, 0" />
+                </Style>
+                <Style TargetType="{x:Type Label}" >
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Title" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding FilmSelected.Title}" />
+            
+            <Label Grid.Row="1" Grid.Column="0" Content="Genres" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding FilmSelected.Genres}" />
+            
+            <Label Grid.Row="2" Grid.Column="0" Content="Synopsis" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding FilmSelected.Synopsis}" TextWrapping="Wrap" Height="50"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Director" />
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding FilmSelected.Director}" />
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Year" />
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding FilmSelected.Year}" />
+
+            <Label Grid.Row="5" Grid.Column="0" Content="Score" />
+            <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding FilmSelected.Score}" VerticalAlignment="Center"/>
+
+            <Label Grid.Row="6" Grid.Column="0" Content="Comments" />
+            <!--<ListBox Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Text}"/>
+                            
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>-->
+            <ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+       
+    </DockPanel>
+    
+</UserControl>

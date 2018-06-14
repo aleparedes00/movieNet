@@ -18,7 +18,7 @@ namespace MovieNet
     /// <summary>
     /// Interaction logic for ProfileView.xaml
     /// </summary>
-    public partial class ProfileView : Page
+    public partial class ProfileView : UserControl
     {
         public ProfileView()
         {
