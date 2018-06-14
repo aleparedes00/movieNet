@@ -18,7 +18,7 @@ namespace MovieNet
     /// <summary>
     /// Interaction logic for NewFilmView.xaml
     /// </summary>
-    public partial class NewFilmView : Page
+    public partial class NewFilmView : UserControl
     {
         public NewFilmView()
         {

@@ -1,4 +1,4 @@
-﻿<Page x:Class="MovieNet.ProfileView"
+﻿<UserControl x:Class="MovieNet.ProfileView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding ProfileVM, Source={StaticResource VMLocator}}"
-      Title="Profile" Height="450" Width="414.447" FontSize="16" Background="ForestGreen">
+      Height="450" Width="414.447" FontSize="16" Background="ForestGreen">
     
     <Border Background="Black" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
@@ -29,4 +29,4 @@
             <Button Content="Back" Background="Gray" Foreground="White" FontSize="18" Command="{Binding BackCommand}" Width="75" HorizontalAlignment="Center"/>
         </StackPanel>
     </Border>
-</Page>
+</UserControl>

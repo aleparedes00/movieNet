@@ -13,10 +13,48 @@ namespace MovieNetData.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
+        private ViewModelBase _currentViewModel;
 
-        public ViewModelBase CurrentView { get; set; }
+        readonly static NewFilmVM _newFilmViewModel = new NewFilmVM();
+        readonly static ProfileVM _profileViewModel = new ProfileVM();
 
-        //Constrocteur
+        //_variables
+        private ObservableCollection<Film> _films;
+        private ICollection<Comment> comentarios;
+        private List<Comment> _comments;
+        private Film _filmSelected;
+        public Film filmToUpdate;
+        private string _title = "";
+        private string _genres = "";
+        private string _synopsis = "";
+        private string _director = "";
+        private short _year;
+        private double _score;
+
+        public ViewModelBase CurrentViewModel {
+            get
+            {
+                return _currentViewModel;
+            }
+            set
+            {
+                if (_currentViewModel != value)
+                {
+                    _currentViewModel = value;
+                    RaisePropertyChanged("CurrentViewModel");
+                }
+            }
+        }
+
+        //Buttons
+        public ICommand NewFilmCommand { get; private set; }
+        public ICommand SaveFilmsCommand { get; private set; }
+        public ICommand ProfileCommand { get; private set; }
+
+        //Services
+        private static ServiceFacade serviceFacade = ServiceFacade.Instance;
+
+        //Constructeur
         public MainViewModel()
         {
             //TODO PROF: How should I create the access to the comments
@@ -32,25 +70,6 @@ namespace MovieNetData.ViewModel
             SaveFilmsCommand = new RelayCommand(SaveFilmsCommandMethod);
             ProfileCommand = new RelayCommand(ProfileCommandMethod);
         }
-        //_variables
-        private ObservableCollection<Film> _films;
-        private ICollection<Comment> comentarios;
-        private List<Comment> _comments;
-        private Film _filmSelected;
-        public Film filmToUpdate;
-        private string _title = "";
-        private string _genres = "";
-        private string _synopsis = "";
-        private string _director = "";
-        private short _year;
-        private double _score;
-
-        //Buttons
-        public ICommand NewFilmCommand { get; private set; }
-        public ICommand SaveFilmsCommand { get; private set; }
-        public ICommand ProfileCommand { get; private set; }
-        //Services
-        private static ServiceFacade serviceFacade = ServiceFacade.Instance;
 
         //Properties
         public ObservableCollection<Film> FilmsList {
@@ -118,9 +137,9 @@ namespace MovieNetData.ViewModel
         }
 
         //Buttons Methods
-        public void NewFilmCommandMethod() {
-            
-            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("This will be drive to another page"));
+        public void NewFilmCommandMethod()
+        {
+            CurrentViewModel = MainViewModel._newFilmViewModel;
         }
 
         public Boolean IsValidInfo()
@@ -185,7 +204,7 @@ namespace MovieNetData.ViewModel
 
         public void ProfileCommandMethod()
         {
-            //TODO: Navigation Go to ProfileVM
+            CurrentViewModel = MainViewModel._profileViewModel;
         }
 
 
