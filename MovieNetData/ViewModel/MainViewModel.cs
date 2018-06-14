@@ -43,6 +43,8 @@ namespace MovieNetData.ViewModel
             FilmsViewCommand = new RelayCommand(FilmsViewCommandMethod);
             NewFilmViewCommand = new RelayCommand(NewFilmViewCommandMethod);
             ProfileViewCommand = new RelayCommand(ProfileViewCommandMethod);
+
+            CurrentViewModel = _filmsViewModel;
         }
 
         //Buttons Methods

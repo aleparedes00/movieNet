@@ -3,19 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MovieNet"
-      xmlns:viewModels="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       DataContext="{Binding ProfileVM, Source={StaticResource VMLocator}}"
-      Height="450" Width="414.447" FontSize="16" Background="ForestGreen">
+      Height="420" Width="670" FontSize="16" Background="ForestGreen">
     
-    <Border Background="Black" CornerRadius="20" Margin="20">
+    <Border Background="LightGreen" CornerRadius="20" Margin="120,20">
         <StackPanel Margin="20">
             <Label Content="Profile" Foreground="White" FontSize="25" HorizontalAlignment="Center"/>
             <Separator></Separator>
-            <Label Content="Username" Foreground="White"/>
+            <Label Content="Username" Foreground="White" Margin="0,25,0,0"/>
             <TextBlock Text="{Binding CurrentUser.Username}" Background="Gray" Foreground="White" FontSize="18"/>
             <Label Content="Password" Foreground="White"/>
             <PasswordBox x:Name="Password" Background="Gray" Foreground="White" FontSize="18">
@@ -25,8 +23,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </PasswordBox>
-            <Button Content="Sumit" Background="Gray" Foreground="White" FontSize="18" Command="{Binding UpdateCommand}" Width="75" HorizontalAlignment="Center"/>
-            <Button Content="Back" Background="Gray" Foreground="White" FontSize="18" Command="{Binding BackCommand}" Width="75" HorizontalAlignment="Center"/>
+            <Button Content="Save Changes" Background="Gray" Foreground="White" FontSize="18" Command="{Binding UpdateCommand}" Width="Auto" HorizontalAlignment="Center" Margin="0,100,0,0" />
         </StackPanel>
     </Border>
 </UserControl>

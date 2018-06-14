@@ -3,22 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MovieNetData.ViewModel;assembly=MovieNetData"
         mc:Ignorable="d"
-        Height="400" Width="670">
+        Height="420" Width="670">
     <DockPanel LastChildFill="True" Background="BurlyWood" DataContext="{Binding FilmsVM, Source={StaticResource VMLocator}}">
-        
-        <ContentControl Content="{Binding CurrentViewModel}" />
-        
-        <Button DockPanel.Dock="Top" Content="Profile" Command="{Binding ProfileCommand}" Width="100" HorizontalAlignment="Right" Margin="0 20 30 0" />
+                
         <ListBox DockPanel.Dock="Left" ItemsSource="{Binding FilmsList}" DisplayMemberPath="Title" SelectedItem="{Binding FilmSelected}" Width="250" FontSize="15" BorderThickness="0"/>
 
-        <DockPanel DockPanel.Dock="Bottom" Margin="20" VerticalAlignment="Center">
-            <Button DockPanel.Dock="Left" Content="New film" Width="150" Height="25" Command="{Binding NewFilmCommand}" />
-            <Button DockPanel.Dock="Right" Content="Save Film" Width="150" Height="25" Command="{Binding SaveFilmsCommand}" />
+        <DockPanel DockPanel.Dock="Bottom" Margin="45.4,20,13.4,20" VerticalAlignment="Center">
+            <Button DockPanel.Dock="Left" Content="New comment" Width="150" Height="25" Command="{Binding NewCommentViewCommand}" />
+            <Button DockPanel.Dock="Right" Content="Save changes" Width="150" Height="25" Command="{Binding SaveFilmsCommand}" />
         </DockPanel>
         
-        <Grid Margin="0,-0.2,0,0.2" Width="394">
+        <Grid Margin="0,10,0,0.2" Width="394">
             <Grid.Resources>
                 <Style TargetType="{x:Type TextBox}">
                     <Setter Property="Height" Value="25" />
