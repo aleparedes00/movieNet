@@ -71,13 +71,13 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>-->
-            <!--<ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding FilmSelected.Comment}">
+            <ListView Grid.Row="6" Grid.Column="1" Grid.RowSpan="3" ItemsSource="{Binding Comments}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Text}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-            </ListView>-->
+            </ListView>
 
         </Grid>
        

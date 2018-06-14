@@ -19,7 +19,7 @@ namespace MovieNetData.ViewModel
         //Constrocteur
         public MainViewModel()
         {
-            //TODO PROF: How should I create the access to the comments
+           
             filmToUpdate = null;
             _filmSelected = new Film(_title, _genres, _synopsis, _director);
             comentarios = new HashSet<Comment>();
@@ -71,7 +71,7 @@ namespace MovieNetData.ViewModel
             set
             {
                 _filmSelected = value;
-                //_comments = serviceFacade.GetFilmComments(filmSelected.Id);
+                Comments = serviceFacade.GetFilmComments(_filmSelected.Id);
                 //affectComment();
                 RaisePropertyChanged("FilmSelected");
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,6 +84,25 @@ namespace MovieNetData.DAO
             }
         }
 
+        private Film FindFilmByIdPrivate(int id, MovieNetModelContainer ctx)
+        {
+            
+                Film filmById = null;
+                try
+                {
+                    filmById = ctx.FilmSet.Where(f => f.Id.Equals(id)).Single();
+                }
+                catch (ArgumentNullException)
+                {
+                    Console.WriteLine("[FILM DAO] Nothing Found under id:" + id);
+                }
+                catch (InvalidOperationException)
+                {
+                    Console.WriteLine("[FILM DAO] Film not found");
+                }
+                return filmById;
+            
+        }
         // CRUD
         public Film CreateFilm(Film film) {
             using (var ctx = new MovieNetModelContainer())
@@ -105,13 +125,21 @@ namespace MovieNetData.DAO
         // Methods with one return. It is advised to make only one return on the method.
         public Film UpdateFilm(Film film) {
             using (var ctx = new MovieNetModelContainer())
-            { 
-                Film filmToUpdate = FindFilmById(film.Id);
+            {
+                Film filmToUpdate = FindFilmByIdPrivate(film.Id, ctx);
+                filmToUpdate.Id = film.Id;
+                filmToUpdate.Title = film.Title;
+                filmToUpdate.Genres = film.Genres;
+                filmToUpdate.Synopsis = film.Synopsis;
+                filmToUpdate.Score = film.Score;
+                filmToUpdate.Year = film.Year;
+                filmToUpdate.Director = film.Director;
 
                 if (filmToUpdate != null)
                 {
                     try
                     {
+                        //ctx.Entry(filmToUpdate).State = EntityState.Modified;
                         int num = ctx.SaveChanges();
                         Console.WriteLine(num);
                     }

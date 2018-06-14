@@ -103,6 +103,26 @@ namespace MovieNetData.DAO
                 return CommentsByFilmId;
             }
         }
+
+        private Comment FindCommentByIdPrivate(int id, MovieNetModelContainer ctx)
+        {
+                Comment CommentById = null;
+
+            try
+            {
+                CommentById = ctx.CommentSet.Where(c => c.Id == id).Single();
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Error executing query.");
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("Error: could not find Comment with id " + id + ".");
+            }
+
+            return CommentById;
+        }
         // ...
 
         // CRUD
@@ -131,8 +151,13 @@ namespace MovieNetData.DAO
         {
             using (var ctx = new MovieNetModelContainer())
             {
-                Comment CommentToUpdate = FindCommentById(updatedComment.Id);
+                Comment CommentToUpdate = FindCommentByIdPrivate(updatedComment.Id, ctx);
                 updatedComment.ModificationDate = DateTime.Now;
+                CommentToUpdate.Score = updatedComment.Score;
+                CommentToUpdate.Text = updatedComment.Text;
+                CommentToUpdate.User = updatedComment.User;
+                CommentToUpdate.Film = updatedComment.Film;
+                CommentToUpdate.CreationDate = updatedComment.CreationDate;
 
                 if (CommentToUpdate != null)
                 {

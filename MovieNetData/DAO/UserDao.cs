@@ -91,6 +91,25 @@ namespace MovieNetData.DAO
             }
             return user;
         }
+
+        private User FindUserByIdPrivate(int id, MovieNetModelContainer ctx)
+        {
+            User userById = null;
+            try
+            {
+                userById = ctx.UserSet.Where(u => u.Id == id).Single();
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("No user found.");
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Error excuting the query");
+            }
+
+            return userById;
+        }
         // ...
 
         // CRUD
@@ -118,11 +137,12 @@ namespace MovieNetData.DAO
         {
             using (var ctx = new MovieNetModelContainer())
             {
-                User userToUpdate = FindUserById(updatedUser.Id);
+                User userToUpdate = FindUserByIdPrivate(updatedUser.Id, ctx);
 
                 if (userToUpdate != null)
                 {
-                    userToUpdate = updatedUser;
+                    userToUpdate.Username = updatedUser.Username;
+                    userToUpdate.Password = updatedUser.Password;
 
                     try
                     {
